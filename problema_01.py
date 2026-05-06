@@ -1,10 +1,6 @@
 """
-problema_01.py
---------------
-Problema 1 da Lista 2 – TI0166
+Problema 1 da Lista 2
 Força e campo elétrico de duas cargas pontuais sobre uma terceira carga em P(1,-3,7).
-
-Disciplina: Eletromagnetismo Básico – TI0166 | Prof. João Batista | UFC
 """
 
 import numpy as np
@@ -13,19 +9,15 @@ from utils import K, calculate_force_on_charge, normalize_vector, add_vector_arr
 
 
 def main():
-    # ------------------------------------------------------------------ #
-    # Dados do problema                                                    #
-    # ------------------------------------------------------------------ #
+    #Dados do problema
     N           = 2
-    charges     = [5e-9, -2e-9]            # Q1 = 5 nC, Q2 = -2 nC
+    charges     = [5e-9, -2e-9]
     coordinates = [(2., 0., 4.),
                    (-3., 0., 5.)]
-    eval_charge = 1e-9                      # Q = 1 nC
-    eval_coord  = (1., -3., 7.)            # Ponto P
+    eval_charge = 1e-9
+    eval_coord  = (1., -3., 7.)
 
-    # ------------------------------------------------------------------ #
-    # Cálculo                                                              #
-    # ------------------------------------------------------------------ #
+    # Cálculo
     F = calculate_force_on_charge(N, charges, coordinates, eval_charge, eval_coord)
     E = F / eval_charge
 
@@ -36,9 +28,7 @@ def main():
     print(f"E = {E} V/m")
     print(f"|E| = {np.linalg.norm(E):.4f} V/m")
 
-    # ------------------------------------------------------------------ #
-    # Visualização 3D                                                      #
-    # ------------------------------------------------------------------ #
+    # Visualização 3D
     all_pts   = np.array(list(coordinates) + [eval_coord])
     max_range = np.ptp(all_pts, axis=0).max()
     F_norm    = normalize_vector(F, 0.15 * max_range)

@@ -1,15 +1,11 @@
 """
-questao_03_anel.py
-------------------
-Questão 3 da Atividade 1 – TI0166
+Questão 3 da Atividade 1
 Anel de carga: solução analítica vs. modelagem por cargas pontuais.
 
 Configuração:
   - Anel no plano xy, centro em (0,0,0), raio a = 1 m
   - Carga total Q = 10 C → ρ_L = Q / (2π·a)
   - Ponto de observação: P(0, 0, 10)
-
-Disciplina: Eletromagnetismo Básico – TI0166 | Prof. João Batista | UFC
 """
 
 import numpy as np
@@ -17,9 +13,7 @@ import plotly.graph_objects as go
 from utils import K
 
 
-# ------------------------------------------------------------------ #
-# Resultado analítico                                                  #
-# ------------------------------------------------------------------ #
+#Resultado analítico      
 def E_analitico_anel(Q, a, h):
     """
     Campo axial de um anel de raio a e carga Q,
@@ -30,9 +24,7 @@ def E_analitico_anel(Q, a, h):
     return K * Q * h / (a**2 + h**2)**1.5
 
 
-# ------------------------------------------------------------------ #
-# Modelo de cargas pontuais                                            #
-# ------------------------------------------------------------------ #
+#Modelo de cargas pontuais
 def campo_anel_pontual(N, Q, a, P):
     """
     Modela o anel como N cargas pontuais igualmente espaçadas
@@ -54,9 +46,8 @@ def main():
     h = 10.0            # m (altura de P)
     P = np.array([0., 0., h])
 
-    # ------------------------------------------------------------------ #
-    # Resultados                                                           #
-    # ------------------------------------------------------------------ #
+
+    # Resultados               
     E_an = E_analitico_anel(Q, a, h)
 
     print("=" * 60)
@@ -72,9 +63,8 @@ def main():
         err = abs(E[2] - E_an) / abs(E_an) * 100
         print(f"{N:>4}  {E[2]:>18.6e}  {err:>10.4f}")
 
-    # ------------------------------------------------------------------ #
-    # Curva de convergência                                                #
-    # ------------------------------------------------------------------ #
+
+    # Curva de convergência    
     Ns      = list(range(5, 201, 5))
     Ez_vals = [campo_anel_pontual(N, Q, a, P)[2] for N in Ns]
     erros   = [abs(Ez - E_an) / abs(E_an) * 100 for Ez in Ez_vals]
@@ -87,7 +77,7 @@ def main():
     print(f"\nAnálise de convergência (regressão log-log):")
     print(f"  Inclinação p = {p[0]:.2f}  (esperado: −2 para quadratura trapezoidal)")
 
-    # Gráfico: Ez vs N
+    #Gráfico: Ez vs N
     fig1 = go.Figure()
     fig1.add_hline(y=E_an, line_dash='dash', line_color='red',
                    annotation_text='Analítico', annotation_position='top right')
@@ -103,7 +93,7 @@ def main():
     )
     fig1.show()
 
-    # Gráfico: erro relativo (log) vs N
+    #Gráfico: erro relativo
     fig2 = go.Figure()
     fig2.add_trace(go.Scatter(
         x=Ns, y=erros, mode='lines+markers',
@@ -118,9 +108,8 @@ def main():
     )
     fig2.show()
 
-    # ------------------------------------------------------------------ #
-    # Comparação linha × anel                                             #
-    # ------------------------------------------------------------------ #
+
+    # Comparação linha × anel 
     print("\nComparação de convergência  (N=30):")
     from questao_02_linha import campo_linha_pontual, E_analitico_linha
     rho_linha = np.linalg.norm(np.array([0., 10., 0.])[:2])

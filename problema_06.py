@@ -1,13 +1,9 @@
 """
-problema_06.py
---------------
-Problema 6 da Lista 2 – TI0166
+Problema 6 da Lista 2
 Carga total em região com densidade volumétrica de carga em coordenadas esféricas.
 
 Região: 4 < r < 5 m, 0 < θ < 25°, 0.9π < φ < 1.1π
 Densidade: ρ_v = 10(r−4)(r−5)·sinθ·sin(φ/2)
-
-Disciplina: Eletromagnetismo Básico – TI0166 | Prof. João Batista | UFC
 """
 
 import numpy as np
@@ -25,16 +21,12 @@ def integrand(phi, theta, r):
 
 
 def main():
-    # ------------------------------------------------------------------ #
-    # Limites de integração                                                #
-    # ------------------------------------------------------------------ #
+    #Limites de integração
     r_lim     = (4, 5)
     theta_lim = (0, 25 * np.pi / 180)
     phi_lim   = (0.9 * np.pi, 1.1 * np.pi)
 
-    # ------------------------------------------------------------------ #
-    # Integração numérica tripla                                           #
-    # ------------------------------------------------------------------ #
+    #Integração tripla
     Q, erro = integrate.tplquad(
         integrand,
         r_lim[0], r_lim[1],
@@ -50,9 +42,7 @@ def main():
     print(f"Q     = {Q:.4f} C")
     print(f"Erro estimado = {erro:.2e} C")
 
-    # ------------------------------------------------------------------ #
-    # Verificação por fatoração das integrais                              #
-    # ------------------------------------------------------------------ #
+    #Verificação por fatoração das integrais
     Ir, _ = integrate.quad(
         lambda r: 10 * (r - 4) * (r - 5) * r**2, 4, 5
     )

@@ -1,16 +1,10 @@
 """
-problema_10.py
---------------
-Problema 10 da Lista 2 – TI0166
+Problema 10 da Lista 2
 Campo elétrico em P(0,0,6) devido a quatro cargas nos vértices de um quadrado 4×4 m.
 
 Configuração (z = 0):
   +Q  em (−2, +2, 0)      +2Q  em (+2, +2, 0)
  −2Q  em (−2, −2, 0)       −Q  em (+2, −2, 0)
-
-Com Q = 15 µC
-
-Disciplina: Eletromagnetismo Básico – TI0166 | Prof. João Batista | UFC
 """
 
 import numpy as np
@@ -19,10 +13,10 @@ from utils import K, electric_field, normalize_vector, add_vector_arrow
 
 
 def main():
-    # ------------------------------------------------------------------ #
-    # Dados do problema                                                    #
-    # ------------------------------------------------------------------ #
-    Q = 15e-6  # C
+
+    # Dados
+
+    Q = 15e-6
 
     posicoes = np.array([
         [-2.,  2., 0.],   # +Q
@@ -33,11 +27,8 @@ def main():
     cargas  = np.array([Q, 2*Q, -2*Q, -Q])
     rotulos = ["+Q", "+2Q", "−2Q", "−Q"]
 
-    P = np.array([0., 0., 6.])  # ponto de observação
+    P = np.array([0., 0., 6.])
 
-    # ------------------------------------------------------------------ #
-    # Cálculo                                                              #
-    # ------------------------------------------------------------------ #
     E = electric_field(cargas, posicoes, P)
 
     print("=" * 55)
@@ -47,9 +38,9 @@ def main():
     print(f"|E| = {np.linalg.norm(E):.2f} V/m")
     print(f"Soma das cargas = {cargas.sum()*1e6:.1f} µC  (deve ser zero → Ez = 0)")
 
-    # ------------------------------------------------------------------ #
-    # Visualização 3D                                                      #
-    # ------------------------------------------------------------------ #
+
+    # Visualização 3D
+
     all_pts   = np.vstack([posicoes, P])
     max_range = np.ptp(all_pts, axis=0).max()
     E_norm    = normalize_vector(E, 0.5 * max_range)

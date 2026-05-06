@@ -1,14 +1,10 @@
 """
-problema_07.py
---------------
-Problema 7 da Lista 2 – TI0166
+Problema 7 da Lista 2
 Força resultante sobre Q3 devido a Q1 e Q2.
 
 Q1 = +2 µC em P1(1, 2, 1) m
 Q2 = −4 µC em P2(−1, 0, 2) m
-Q3 = −3 µC em P3(2, 1, 3) m  ← carga avaliada
-
-Disciplina: Eletromagnetismo Básico – TI0166 | Prof. João Batista | UFC
+Q3 = −3 µC em P3(2, 1, 3) m 
 """
 
 import numpy as np
@@ -17,22 +13,18 @@ from utils import K, calculate_force_on_charge, normalize_vector, add_vector_arr
 
 
 def main():
-    # ------------------------------------------------------------------ #
-    # Dados do problema                                                    #
-    # ------------------------------------------------------------------ #
-    charges     = [2e-6, -4e-6]               # Q1, Q2
+    # Dados
+    charges     = [2e-6, -4e-6]
     coordinates = [(1., 2., 1.), (-1., 0., 2.)]
-    Q3          = -3e-6                        # carga avaliada
+    Q3          = -3e-6
     P3          = (2., 1., 3.)
 
     N = len(charges)
 
-    # ------------------------------------------------------------------ #
-    # Cálculo                                                              #
-    # ------------------------------------------------------------------ #
+    #Cálculo
     F_total = calculate_force_on_charge(N, charges, coordinates, Q3, P3)
 
-    # Forças individuais para conferência
+    #Forças individuais para conferência
     F13 = calculate_force_on_charge(1, [charges[0]], [coordinates[0]], Q3, P3)
     F23 = calculate_force_on_charge(1, [charges[1]], [coordinates[1]], Q3, P3)
 
@@ -44,9 +36,7 @@ def main():
     print(f"F_Q3   = {F_total * 1e3} mN")
     print(f"|F_Q3| = {np.linalg.norm(F_total) * 1e3:.4f} mN")
 
-    # ------------------------------------------------------------------ #
-    # Visualização 3D                                                      #
-    # ------------------------------------------------------------------ #
+    #Visualização 3D
     all_pts   = np.array(list(coordinates) + [P3])
     max_range = np.ptp(all_pts, axis=0).max()
     F_norm    = normalize_vector(F_total, 0.3 * max_range)
