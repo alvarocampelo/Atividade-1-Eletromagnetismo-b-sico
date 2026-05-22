@@ -111,7 +111,7 @@ def main():
 
     # Comparação linha × anel 
     print("\nComparação de convergência  (N=30):")
-    from questao_02_linha import campo_linha_pontual, E_analitico_linha
+    from Atividade_1.questao_02_linha import campo_linha_pontual, E_analitico_linha
     rho_linha = np.linalg.norm(np.array([0., 10., 0.])[:2])
     E_an_l    = E_analitico_linha(Q, 1.0, rho_linha)
     E_l30     = campo_linha_pontual(30, Q, 1.0, np.array([0., 10., 0.]))
