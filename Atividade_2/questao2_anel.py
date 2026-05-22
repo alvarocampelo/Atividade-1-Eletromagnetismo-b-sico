@@ -27,7 +27,7 @@ def potencial_anel_computacional(Q, a, N, x, y, z):
 def main():
     Q = 1e-6
     a = 1.0
-    pontos = [(0, 0, 2), (0, 0, 5), (2, 1, 3)]
+    pontos = [(0, 0, 2), (0, 0, 5), (0, 0, -1)]
     N_vals = [10, 50, 100]
     cores = ['tab:blue', 'tab:orange', 'tab:green']
     marcadores = ['o', 's', '^']
